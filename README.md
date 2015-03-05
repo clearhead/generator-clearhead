@@ -1,27 +1,13 @@
-# generator-clearhead [![Build Status](https://secure.travis-ci.org/clearhead/generator-clearhead.png?branch=master)](https://travis-ci.org/clearhead/generator-clearhead)
-
-> [Yeoman](http://yeoman.io) generator
-
+# generator-clearhead [![Circle CI](https://circleci.com/gh/clearhead/generator-clearhead.svg?style=svg)](https://circleci.com/gh/clearhead/generator-clearhead)
 
 ## Getting Started
 
-### What You Get!
-
 ```bash
+# install
 npm install -g yo # once
-```
+npm install -g generator-clearhead # once
 
-### Yeoman Generators
-
-To install generator-clearhead from npm, run:
-
-```bash
-npm install -g generator-clearhead
-```
-
-Finally, initiate the generator:
-
-```bash
+# run
 yo clearhead
 ```
 
@@ -33,3 +19,7 @@ And get the goodness!
 ## License
 
 WTFPL
+
+## Contributors
+
+* Tom Fuertes | @thisbetom
