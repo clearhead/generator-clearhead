@@ -4,11 +4,11 @@
   "description": "Yeoman generator",
   "license": "MIT",
   "main": "app/index.js",
-  "repository": "tomfuertes/generator-clearhead",
+  "repository": "clearhead/generator-clearhead",
   "author": {
-    "name": "Tom Fuertes",
-    "email": "TomFuertes@gmail.com",
-    "url": "https://github.com/tomfuertes"
+    "name": "Clearhead Dev",
+    "email": "dev@clearhead.me",
+    "url": "https://github.com/clearhead"
   },
   "engines": {
     "node": ">=0.10.0"
@@ -25,10 +25,11 @@
   "dependencies": {
     "yeoman-generator": "^0.18.9",
     "chalk": "^1.0.0",
-    "yosay": "^1.0.2"
+    "yosay": "^1.0.2",
+    "update-notifier": "^0.3.1",
+    "yeoman-handlebars-engine": "^1.0.0"
   },
   "devDependencies": {
-    "mocha": "*",
-    "yeoman-handlebars-engine": "^1.0.0"
+    "mocha": "*"
   }
 }

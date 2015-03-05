@@ -1,8 +1,11 @@
 'use strict';
-var fs = require('fs');
 var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
 var yosay = require('yosay');
+
+var updateNotifier = require('update-notifier');
+var pkg = require('../package.json');
+var notify = updateNotifier({pkg: pkg});
 
 var conf;
 module.exports = yeoman.generators.Base.extend({
@@ -22,8 +25,11 @@ module.exports = yeoman.generators.Base.extend({
     var prompts = [{
       type: 'rawlist',
       name: 'client',
-      message: 'Client Folder?',
-      choices: getDirectories('./')
+      message: 'Client (Folder)?',
+      choices: getDirectories('./'),
+      validate: function () {
+        return true;
+      }
     },{
       type: 'input',
       name: 'name',
@@ -55,13 +61,18 @@ module.exports = yeoman.generators.Base.extend({
     }];
 
     this.prompt(prompts, function (props) {
+
+      notify.notify();
+
       conf = {
         name: props.name,
         idx: props.idx,
         plan: props.plan,
         author: props.author
       };
-      this.slug = props.client + '/' + props.name + '/';
+      this.slug =
+        (props.client ? props.client + '/' : '') +
+        (props.name ? props.name + '/' : '');
 
       done();
     }.bind(this));
@@ -74,7 +85,7 @@ module.exports = yeoman.generators.Base.extend({
         this.destinationPath(this.slug + 'global.css'),
         conf
       );
-      this.fs.copy(
+      this.fs.copyTpl(
         this.templatePath('global.js'),
         this.destinationPath(this.slug + 'global.js'),
         conf
@@ -82,12 +93,12 @@ module.exports = yeoman.generators.Base.extend({
     },
 
     variations: function () {
-      this.fs.copy(
+      this.fs.copyTpl(
         this.templatePath('control.js'),
         this.destinationPath(this.slug + 'control.js'),
         conf
       );
-      this.fs.copy(
+      this.fs.copyTpl(
         this.templatePath('variation.js'),
         this.destinationPath(this.slug + 'variation.js'),
         conf
@@ -102,12 +113,13 @@ module.exports = yeoman.generators.Base.extend({
   }
 });
 
+/*jshint latedef:false*/
 function getDirectories(srcpath) {
   var fs = require('fs'),
     path = require('path');
   return fs.readdirSync(srcpath).filter(function(file) {
     return fs.statSync(path.join(srcpath, file)).isDirectory();
   }).filter(function (dir){
-    return !/^(\.git|test|node_modules|bower_components|app)$/.test(dir)
+    return !/^(\.git|test|node_modules|bower_components|app)$/.test(dir);
   });
 }

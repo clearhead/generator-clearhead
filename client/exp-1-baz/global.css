@@ -1,0 +1,18 @@
+/*--------------------------------------------
+ *
+ *  test name: exp-1-baz
+ *  test platform: optimizely
+ *  test plan: http://www.example.com/exp1plan.pdf
+ *  author: tom@clearhead.me
+ *  notes:
+ *    - valid for: {{urls}}
+ *    - assumes {{tbd}}
+ *
+ * ------------------------------------------*/
+
+.clearhead-exp-1 {
+  /*global scope*/
+}
+.clearhead-exp-1 #foo {
+  display: none;
+}
