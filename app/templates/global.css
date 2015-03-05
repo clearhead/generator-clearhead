@@ -1,0 +1,18 @@
+/*--------------------------------------------
+ *
+ *  test name: <%=name%>
+ *  test platform: optimizely
+ *  test plan: <%=plan%>
+ *  author: <%=author%>
+ *  notes:
+ *    - valid for: {{urls}}
+ *    - assumes {{tbd}}
+ *
+ * ------------------------------------------*/
+
+.clearhead-exp-<%=idx%> {
+  /*global scope*/
+}
+.clearhead-exp-<%=idx%> #foo {
+  display: none;
+}

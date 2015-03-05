@@ -1,3 +1,4 @@
+/*jshint mocha:true*/
 'use strict';
 
 var path = require('path');
@@ -11,17 +12,21 @@ describe('clearhead:app', function () {
       .inDir(path.join(os.tmpdir(), './temp-test'))
       .withOptions({ 'skip-install': true })
       .withPrompt({
-        someOption: true
+        client: 'foo',
+        name: 'exp-1-bar',
+        idx: '1',
+        plan: 'http://www.example.com',
+        author: 'dev@clearhead.me'
       })
       .on('end', done);
   });
 
   it('creates files', function () {
     assert.file([
-      'bower.json',
-      'package.json',
-      '.editorconfig',
-      '.jshintrc'
+      'foo/exp-1-bar/global.js',
+      'foo/exp-1-bar/global.css',
+      'foo/exp-1-bar/control.js',
+      'foo/exp-1-bar/variation.js',
     ]);
   });
 });
