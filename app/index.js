@@ -1,4 +1,6 @@
 'use strict';
+var fs = require('fs');
+var path = require('path');
 var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
 var yosay = require('yosay');
@@ -52,6 +54,14 @@ module.exports = yeoman.generators.Base.extend({
         return !!input;
       }
     },{
+      type: 'list',
+      name: 'analytics',
+      message: 'Analytics?',
+      choices: getFiles(__dirname + '/templates/analytics/'),
+      validate: function (input) {
+        return !!input;
+      }
+    },{
       type: 'input',
       name: 'author',
       message: 'Author?',
@@ -68,7 +78,8 @@ module.exports = yeoman.generators.Base.extend({
         name: props.name,
         idx: props.idx,
         plan: props.plan,
-        author: props.author
+        author: props.author,
+        analytics: fs.readFileSync(__dirname + '/templates/analytics/' + props.analytics)
       };
       this.slug =
         (props.client ? props.client + '/' : '') +
@@ -110,16 +121,24 @@ module.exports = yeoman.generators.Base.extend({
     this.installDependencies({
       skipInstall: true
     });
+  },
+
+  end: function () {
+    this.log(yosay(
+      'Thanks! ctrl+f TODO if you included any analytics.'
+    ));
   }
 });
 
 /*jshint latedef:false*/
 function getDirectories(srcpath) {
-  var fs = require('fs'),
-    path = require('path');
   return fs.readdirSync(srcpath).filter(function(file) {
     return fs.statSync(path.join(srcpath, file)).isDirectory();
   }).filter(function (dir){
     return !/^(\.git|test|node_modules|bower_components|app)$/.test(dir);
   });
+}
+
+function getFiles(srcpath) {
+  return fs.readdirSync(srcpath);
 }

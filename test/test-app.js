@@ -15,6 +15,7 @@ describe('clearhead:app', function () {
         client: 'foo',
         name: 'exp-1-bar',
         idx: '1',
+        analytics: 'google-tag-manager.js',
         plan: 'http://www.example.com',
         author: 'dev@clearhead.me'
       })

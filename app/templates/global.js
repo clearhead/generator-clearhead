@@ -12,4 +12,7 @@
  * ------------------------------------------*/
 $('html').addClass('clearhead-exp-<%=idx%>');
 window['optimizelyExp<%=idx%>'] = {};
+
+<%=analytics%>
+
 /* _optimizely_evaluate=safe */
