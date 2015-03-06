@@ -10,13 +10,20 @@
  *    - assumes {{tbd}}
  *
  * ------------------------------------------*/
-$('html').addClass('clearhead-exp-<%=idx%>');
-$.extend(window['optimizelyExp<%=idx%>'], {
-  headlineText: 'New Headline',
+$('html').addClass('exp-<%=idx%>');
+$.extend(exp<%=idx%>, {
+  data: {text: 'New Headline'},
+  headline: function () {
+    return this.htmlHeredoc(function () {/*
+      <div id="exp-<%=idx%>">
+        {{text}}
+      </div>
+    */}, this.data);
+  },
   moveUp: function () {
     $(this).insertBefore($('h1'));
   }
-};
+});
 /* _optimizely_evaluate=safe */
-$('h1').text(window['optimizelyExp<%=idx%>'].headlineText);
-$('h2').each(window['optimizelyExp<%=idx%>'].moveUp);
+$('h1').text($.proxy(exp<%=idx%>, 'headline'));
+$('h2').each(exp<%=idx%>.moveUp);

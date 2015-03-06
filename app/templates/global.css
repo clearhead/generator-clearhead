@@ -10,9 +10,9 @@
  *
  * ------------------------------------------*/
 
-.clearhead-exp-<%=idx%> {
+.exp-<%=idx%> {
   /*global scope*/
 }
-.clearhead-exp-<%=idx%> #foo {
+.exp-<%=idx%> #foo {
   display: none;
 }
