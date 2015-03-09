@@ -4,93 +4,139 @@ var path = require('path');
 var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
 var yosay = require('yosay');
+var optimizelyFactory = require('optimizely-node');
+var optimizely, projects/*, experiments, variations*/;
 
 var updateNotifier = require('update-notifier');
 var pkg = require('../package.json');
-var notify = updateNotifier({pkg: pkg});
+var notify = updateNotifier({
+  pkg: pkg
+});
 
 var conf;
 module.exports = yeoman.generators.Base.extend({
 
-  initializing: function () {
+  initializing: function() {
     this.pkg = require('../package.json');
   },
 
-  prompting: function () {
-    var done = this.async();
+  prompting: {
+    api: function() {
+      var done = this.async();
+      var self = this;
 
-    // Have Yeoman greet the user.
-    this.log(yosay(
-      'Welcome to the cat\'s pajamas ' + chalk.red('Clearhead') + ' generator!'
-    ));
+      // Have Yeoman greet the user.
+      self.log(yosay('Welcome to the cat\'s pajamas ' + chalk.red('Clearhead') + ' generator!'));
 
-    var prompts = [{
-      type: 'rawlist',
-      name: 'client',
-      message: 'Client (Folder)?',
-      choices: getDirectories('./'),
-      validate: function () {
-        return true;
-      }
-    },{
-      type: 'input',
-      name: 'name',
-      message: 'What is the experiment name? (e.g., exp-X-foobar)',
-      validate: function (input) {
-        return !!input;
-      }
-    },{
-      type: 'input',
-      name: 'idx',
-      message: 'What is the exp idx? (e.g., 10)',
-      validate: function (input) {
-        return !!input;
-      }
-    },{
-      type: 'input',
-      name: 'plan',
-      message: 'Test Plan Link?',
-      validate: function (input) {
-        return !!input;
-      }
-    },{
-      type: 'list',
-      name: 'analytics',
-      message: 'Analytics?',
-      choices: getFiles(__dirname + '/templates/analytics/'),
-      validate: function (input) {
-        return !!input;
-      }
-    },{
-      type: 'input',
-      name: 'author',
-      message: 'Author?',
-      validate: function (input) {
-        return !!input;
-      }
-    }];
+      self.prompt([{
+        type: 'input',
+        name: 'api_key',
+        message: 'API Key?',
+        validate: function(apiKey) {
 
-    this.prompt(prompts, function (props) {
 
-      notify.notify();
+          var done = this.async();
 
-      conf = {
-        name: props.name,
-        idx: props.idx,
-        plan: props.plan,
-        author: props.author,
-        analytics: fs.readFileSync(__dirname + '/templates/analytics/' + props.analytics)
-      };
-      this.slug =
-        (props.client ? props.client + '/' : '') +
-        (props.name ? props.name + '/' : '');
+          var old = console.error;
+          console.error = function () {};
+          optimizely = optimizelyFactory(apiKey);
+          optimizely.projects.fetchAll().then(function(data) {
+            self.config.save(apiKey);
+            projects = data;
+            done(true);
+          }, function(err) {
+            done('error: ' + err);
+          }).finally(function () {
+            console.error = old;
+          });
 
-      done();
-    }.bind(this));
+        }
+      },{
+        type: 'list',
+        name: 'project',
+        message: 'Project?',
+        choices: function () {return projects.map(function (p) { return p.project_name; });}
+      }], function(props) {
+
+        // console.log(props);
+        // console.log(projects);
+        done();
+
+      }.bind(this));
+
+    },
+    fs: function() {
+
+      var prompts = [{
+        type: 'rawlist',
+        name: 'client',
+        message: 'Client (Folder)?',
+        choices: getDirectories('./'),
+        validate: function () {
+          return true;
+        }
+      },{
+        type: 'input',
+        name: 'name',
+        message: 'What is the experiment name? (e.g., exp-X-foobar)',
+        validate: function (input) {
+          return !!input;
+        }
+      },{
+        type: 'input',
+        name: 'idx',
+        message: 'What is the exp idx? (e.g., 10)',
+        validate: function (input) {
+          return !!input;
+        }
+      },{
+        type: 'input',
+        name: 'plan',
+        message: 'Test Plan Link?',
+        validate: function (input) {
+          return !!input;
+        }
+      },{
+        type: 'list',
+        name: 'analytics',
+        message: 'Analytics?',
+        choices: getFiles(__dirname + '/templates/analytics/'),
+        validate: function (input) {
+          return !!input;
+        }
+      },{
+        type: 'input',
+        name: 'author',
+        message: 'Author?',
+        validate: function (input) {
+          return !!input;
+        }
+      }];
+
+      this.prompt(prompts, function (props) {
+
+        notify.notify();
+
+        conf = {
+          name: props.name,
+          idx: props.idx,
+          plan: props.plan,
+          author: props.author,
+          analytics: fs.readFileSync(__dirname + '/templates/analytics/' + props.analytics)
+        };
+
+        this.slug =
+          (props.client ? props.client + '/' : '') +
+          (props.name ? props.name + '/' : '');
+
+      }.bind(this));
+    },
   },
 
+
+
   writing: {
-    globals: function () {
+    globals: function() {
       this.fs.copyTpl(
         this.templatePath('global.css'),
         this.destinationPath(this.slug + 'global.css'),
@@ -103,7 +149,7 @@ module.exports = yeoman.generators.Base.extend({
       );
     },
 
-    variations: function () {
+    variations: function() {
       this.fs.copyTpl(
         this.templatePath('control.js'),
         this.destinationPath(this.slug + 'control.js'),
@@ -117,13 +163,13 @@ module.exports = yeoman.generators.Base.extend({
     }
   },
 
-  install: function () {
+  install: function() {
     this.installDependencies({
       skipInstall: true
     });
   },
 
-  end: function () {
+  end: function() {
     this.log(yosay(
       'Thanks! ctrl+f TODO if you included any analytics.'
     ));
@@ -134,7 +180,7 @@ module.exports = yeoman.generators.Base.extend({
 function getDirectories(srcpath) {
   return fs.readdirSync(srcpath).filter(function(file) {
     return fs.statSync(path.join(srcpath, file)).isDirectory();
-  }).filter(function (dir){
+  }).filter(function(dir) {
     return !/^(\.git|test|node_modules|bower_components|app)$/.test(dir);
   });
 }
