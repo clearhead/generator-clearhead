@@ -13,6 +13,31 @@
 
 <%= analytics %>
 
+$.exp<%=idx%> = {};
+$.exp<%=idx%>.extend = function() {
+  'use strict';
+
+  var current = this,
+      base,
+      args = [].slice.call(arguments),
+      fn = args.pop(), path = args.pop();
+
+  var extendChain = function() {
+    for (var i = 0, len = chain.length; i < len; i++) {
+      current = current[chain[i]] = current[chain[i]] || {};
+    }
+  };
+
+  if (path) {
+    var chain = path.split('.');
+    extendChain();
+    base = this[chain[0]];
+  }
+
+  fn.call(current, base);
+};
+
+
 // boilerplate templating and config functions
 window.exp<%=idx%> = {
   htmlHeredoc: function(fn) {
