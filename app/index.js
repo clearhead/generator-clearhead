@@ -79,7 +79,8 @@ module.exports = yeoman.generators.Base.extend({
         idx: props.idx,
         plan: props.plan,
         author: props.author,
-        analytics: fs.readFileSync(__dirname + '/templates/analytics/' + props.analytics)
+        analytics: fs.readFileSync(__dirname + '/templates/analytics/' + props.analytics),
+        base: fs.readFileSync(__dirname + '/templates/base.js'),
       };
       this.slug =
         (props.client ? props.client + '/' : '') +
