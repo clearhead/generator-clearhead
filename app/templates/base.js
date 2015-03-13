@@ -10,7 +10,7 @@ $.extend($.exp<%=idx%>, {
     document.cookie)[1]}catch(a){}(new Image).src=b+$.map({v:1,tid:
     "UA-33947856-2",cid:d,t:"event",ec:location.hostname,
     ea:"exp<%=idx%>",el:a.toString(),z:(new Date).getTime()},
-    function(a,b){return b+"="+encodeURIComponent(a)}).get().join("&")
+    function(a,b){return b+"="+encodeURIComponent(a)}).join("&")
   },
   htmlHeredoc: function(fn) {
     var html = fn.toString().replace(/[^]+\/\*|[^\S]+\*\/[^]+|\s+(?=<)|\n|\t|\r/g, '').replace(/>\s+/g, '>');
