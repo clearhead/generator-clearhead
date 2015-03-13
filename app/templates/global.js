@@ -14,6 +14,6 @@ $.exp<%=idx%> = {};
 
 <%=analytics%> // jshint ignore:line
 
-<%= base %> // jshint ignore:line
+<%=base%> // jshint ignore:line
 
 /* _optimizely_evaluate=safe */
