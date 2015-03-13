@@ -30,6 +30,8 @@
     "yeoman-handlebars-engine": "^1.0.0"
   },
   "devDependencies": {
-    "mocha": "*"
+    "mocha": "*",
+    "pre-push": "git://github.com/clearhead/pre-push",
+    "which": "^1.0.9"
   }
 }
