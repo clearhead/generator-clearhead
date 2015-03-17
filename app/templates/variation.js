@@ -24,12 +24,13 @@ $.extend($['exp<%=idx%>'], {
     */}, this.data);
   },
   moveUp: function () {
-    this.log('moved up');
+    var exp = $['exp<%=idx%>'];
+    exp.log('moved up');
     var $h1 = $('h1');
     if ($h1.length) {
       $(this).insertBefore($h1);
     } else {
-      this.report('h1 not found');
+      exp.report('h1 not found');
     }
   }
 });
