@@ -10,4 +10,5 @@
  *    - assumes {{tbd}}
  *
  * ------------------------------------------*/
+ $.exp<%=idx%>.log('control');
 /* _optimizely_evaluate=safe */

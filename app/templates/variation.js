@@ -11,9 +11,12 @@
  *
  * ------------------------------------------*/
 $('html').addClass('exp-<%=idx%>');
-$.extend($.exp<%=idx%>, {
+$['exp<%=idx%>'].log('v1');
+
+$.extend($['exp<%=idx%>'], {
   data: {text: 'New Headline'},
   headline: function () {
+    this.log('headline');
     return this.htmlHeredoc(function () {/*
       <div id="exp-<%=idx%>">
         {{text}}
@@ -21,9 +24,16 @@ $.extend($.exp<%=idx%>, {
     */}, this.data);
   },
   moveUp: function () {
-    $(this).insertBefore($('h1'));
+    this.log('moved up');
+    var $h1 = $('h1');
+    if ($h1.length) {
+      $(this).insertBefore($h1);
+    } else {
+      this.report('h1 not found');
+    }
   }
 });
+
 /* _optimizely_evaluate=safe */
-$('h1').text($.proxy($.exp<%=idx%>, 'headline'));
-$('h2').each($.exp<%=idx%>.moveUp);
+$('h1').text($.proxy($['exp<%=idx%>'], 'headline'));
+$('h2').each($['exp<%=idx%>'].moveUp);
