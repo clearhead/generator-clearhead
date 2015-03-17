@@ -80,7 +80,7 @@ module.exports = yeoman.generators.Base.extend({
         idx: props.idx,
         plan: props.plan,
         author: props.author,
-        analytics: fs.readFileSync(__dirname + '/templates/analytics/' + props.analytics),
+        analytics: props.analytics,
         baseFileName: (__dirname + '/templates/base.js'),
       };
       this.slug =
@@ -95,10 +95,15 @@ module.exports = yeoman.generators.Base.extend({
     globals: function () {
       conf.base = fs.readFileSync(conf.baseFileName).toString();
       conf.base = this.engine(conf.base, conf); // compile base
-      conf.base = UglifyJS.minify(conf.base, {
-        fromString: true
-        /*, output: { 'max_line_len': 50 }*/
-      }).code;
+      conf.base = UglifyJS.minify(conf.base, { fromString: true,
+        output: {comments:true} }).code;
+      var analyticsName = conf.analytics;
+      var analytics = fs.readFileSync(__dirname + '/templates/analytics/' + analyticsName).toString();
+      analytics = this.engine(analytics, conf);
+      analytics = UglifyJS.minify(analytics, { fromString: true,
+        /*output: {comments:true}*/ }).code;
+      analytics = '// ' + analyticsName + '\n' + analytics;
+      conf.analytics = analytics;
       this.fs.copyTpl(
         this.templatePath('global.css'),
         this.destinationPath(this.slug + 'global.css'),
