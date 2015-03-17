@@ -12,8 +12,8 @@
  * ------------------------------------------*/
 $.exp<%=idx%> = { id: 0123456789, cv: 0 };
 
-<%=analytics%> // jshint ignore:line
+<%=analytics%>
 
-<%=base%> // jshint ignore:line
+<%=base%>
 
 /* _optimizely_evaluate=safe */
