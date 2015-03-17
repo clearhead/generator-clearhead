@@ -1,6 +1,6 @@
 ;(function(){try{
-var experimentId = 'TODO'; // experiment id (this should be a number, not a string)
-var chDimension = 'TODO'; // 1,2,3,4,5 (this should be a number, not a string)
+var experimentId = $['exp<%=idx%>'].id; // experiment id (this should be a number, not a string)
+var chDimension = $['exp<%=idx%>'].cv; // 1,2,3,4,5 (this should be a number, not a string)
 window.clearhead = window.clearhead || {};
 window.clearhead.gtm = window.clearhead.gtm || {};
 Object.defineProperty(window.clearhead.gtm, 'ab' + chDimension, {

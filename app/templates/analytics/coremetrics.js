@@ -1,12 +1,6 @@
-var optlyExecute = true;
-/* _optimizely_evaluate=editor_only */
-var optlyExecute = false;
-/* _optimizely_evaluate=end_editor_only */
-
-$(document).ready(function () {
-  if (optlyExecute) {
-
-    var e = 'TODO'; // REMEMBER TO SET EXPERIMENT ID
+$(function() {
+  try {
+    var e = $['exp<%=idx%>'].id;
 
     // DO NOT EDIT BELOW THIS LINE
     var o = window.optimizely,
@@ -35,5 +29,5 @@ $(document).ready(function () {
       cmValue = valueArray.length === 0 ? 'Control' : valueArray.join(', ');
     }
     window.cmCreateElementTag(cmValue, cmKey);
-  }
+  } catch (err) {}
 });
