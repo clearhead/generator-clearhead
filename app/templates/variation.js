@@ -11,7 +11,7 @@
  *
  * ------------------------------------------*/
 $('html').addClass('exp-<%=idx%>');
-$.extend(exp<%=idx%>, {
+$.extend($.exp<%=idx%>, {
   data: {text: 'New Headline'},
   headline: function () {
     return this.htmlHeredoc(function () {/*
@@ -25,5 +25,5 @@ $.extend(exp<%=idx%>, {
   }
 });
 /* _optimizely_evaluate=safe */
-$('h1').text($.proxy(exp<%=idx%>, 'headline'));
-$('h2').each(exp<%=idx%>.moveUp);
+$('h1').text($.proxy($.exp<%=idx%>, 'headline'));
+$('h2').each($.exp<%=idx%>.moveUp);
