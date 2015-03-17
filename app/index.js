@@ -28,7 +28,7 @@ module.exports = yeoman.generators.Base.extend({
     var prompts = [{
       type: 'input',
       name: 'idx',
-      message: 'What is the exp idx? (e.g., 10)',
+      message: 'exp-{{int}}-slug',
       validate: function (input) {
         return /^\d+$/.test(idx = input);
       }
@@ -40,9 +40,6 @@ module.exports = yeoman.generators.Base.extend({
       },
       validate: function (input) {
         return /^[a-z0-9-]+$/.test(input);
-      },
-      filter: function (val) {
-        return ['exp',idx,val].join('-');
       }
     },{
       type: 'input',
@@ -70,14 +67,14 @@ module.exports = yeoman.generators.Base.extend({
       notify.notify();
 
       conf = {
-        name: props.name,
+        name: 'exp-'+props.idx+'-'+props.name,
         idx: props.idx,
         plan: props.plan,
         author: props.author,
         analytics: props.analytics,
         baseFileName: (__dirname + '/templates/base.js'),
       };
-      this.slug = (props.name ? props.name + '/' : '');
+      this.slug = conf.name + '/';
 
       done();
     }.bind(this));

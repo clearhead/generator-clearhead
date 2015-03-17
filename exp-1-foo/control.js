@@ -1,18 +1,14 @@
+/* _optimizely_evaluate=force */ /*global $*/
 /*--------------------------------------------
  *
- *  test name: exp-1-baz
+ *  test name: exp-1-foo
  *  test platform: optimizely
- *  test plan: http://www.example.com/exp1plan.pdf
+ *  test plan: ex.ly/plan.pdf
  *  author: tom@clearhead.me
  *  notes:
  *    - valid for: {{urls}}
  *    - assumes {{tbd}}
  *
  * ------------------------------------------*/
-
-.clearhead-exp-1 {
-  /*global scope*/
-}
-.clearhead-exp-1 #foo {
-  display: none;
-}
+ $.exp1.log('control');
+/* _optimizely_evaluate=safe */
