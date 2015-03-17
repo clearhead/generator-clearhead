@@ -3,14 +3,14 @@
  *
  *  test name: <%=name%>
  *  test platform: optimizely
- *  test plan: <%=plan%>
+<%if(plan){%> *  test plan: <%=plan%><%}%>
  *  author: <%=author%>
  *  notes:
  *    - valid for: {{urls}}
  *    - assumes {{tbd}}
  *
  * ------------------------------------------*/
-$.exp<%=idx%> = { id: 0123456789, cv: 0 };
+$['exp<%=idx%>'] = { id: 0123456789, cv: 0 };
 
 <%=analytics%> // jshint ignore:line
 

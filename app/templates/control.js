@@ -3,7 +3,7 @@
  *
  *  test name: <%=name%>
  *  test platform: optimizely
- *  test plan: <%=plan%>
+<%if(plan){%> *  test plan: <%=plan%><%}%>
  *  author: <%=author%>
  *  notes:
  *    - valid for: {{urls}}

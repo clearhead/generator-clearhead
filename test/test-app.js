@@ -12,11 +12,10 @@ describe('clearhead:app', function () {
       .inDir(path.join(os.tmpdir(), './temp-test'))
       .withOptions({ 'skip-install': true })
       .withPrompt({
-        client: 'foo',
-        name: 'exp-1-bar',
         idx: '1',
+        name: 'bar',
         analytics: 'google-tag-manager.js',
-        plan: 'http://www.example.com',
+        plan: 'http://www.example.com/plan.pdf',
         author: 'dev@clearhead.me'
       })
       .on('end', done);
@@ -24,10 +23,10 @@ describe('clearhead:app', function () {
 
   it('creates files', function () {
     assert.file([
-      'foo/exp-1-bar/global.js',
-      'foo/exp-1-bar/global.css',
-      'foo/exp-1-bar/control.js',
-      'foo/exp-1-bar/variation.js',
+      'exp-1-bar/global.js',
+      'exp-1-bar/global.css',
+      'exp-1-bar/control.js',
+      'exp-1-bar/variation.js',
     ]);
   });
 });

@@ -1,6 +1,5 @@
 'use strict';
 var fs = require('fs');
-var path = require('path');
 var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
 var yosay = require('yosay');
@@ -25,35 +24,30 @@ module.exports = yeoman.generators.Base.extend({
       'Welcome to the cat\'s pajamas ' + chalk.red('Clearhead') + ' generator!'
     ));
 
+    var idx;
     var prompts = [{
-      type: 'rawlist',
-      name: 'client',
-      message: 'Client (Folder)?',
-      choices: getDirectories('./'),
-      validate: function () {
-        return true;
-      }
-    },{
-      type: 'input',
-      name: 'name',
-      message: 'What is the experiment name? (e.g., exp-X-foobar)',
-      validate: function (input) {
-        return !!input;
-      }
-    },{
       type: 'input',
       name: 'idx',
       message: 'What is the exp idx? (e.g., 10)',
       validate: function (input) {
-        return !!input;
+        return /^\d+$/.test(idx = input);
+      }
+    },{
+      type: 'input',
+      name: 'name',
+      message: function() {
+        return 'exp-'+idx+'-{{slug}}';
+      },
+      validate: function (input) {
+        return /^[a-z0-9-]+$/.test(input);
+      },
+      filter: function (val) {
+        return ['exp',idx,val].join('-');
       }
     },{
       type: 'input',
       name: 'plan',
-      message: 'Test Plan Link?',
-      validate: function (input) {
-        return !!input;
-      }
+      message: 'Test Plan Link? (optional)'
     },{
       type: 'list',
       name: 'analytics',
@@ -83,9 +77,7 @@ module.exports = yeoman.generators.Base.extend({
         analytics: props.analytics,
         baseFileName: (__dirname + '/templates/base.js'),
       };
-      this.slug =
-        (props.client ? props.client + '/' : '') +
-        (props.name ? props.name + '/' : '');
+      this.slug = (props.name ? props.name + '/' : '');
 
       done();
     }.bind(this));
@@ -144,14 +136,6 @@ module.exports = yeoman.generators.Base.extend({
 });
 
 /*jshint latedef:false*/
-function getDirectories(srcpath) {
-  return fs.readdirSync(srcpath).filter(function(file) {
-    return fs.statSync(path.join(srcpath, file)).isDirectory();
-  }).filter(function (dir){
-    return !/^(\.git|test|node_modules|bower_components|app)$/.test(dir);
-  });
-}
-
 function getFiles(srcpath) {
   return fs.readdirSync(srcpath);
 }
