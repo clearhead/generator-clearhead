@@ -4,6 +4,7 @@ var path = require('path');
 var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
 var yosay = require('yosay');
+var UglifyJS = require('uglify-js');
 
 var updateNotifier = require('update-notifier');
 var pkg = require('../package.json');
@@ -80,7 +81,7 @@ module.exports = yeoman.generators.Base.extend({
         plan: props.plan,
         author: props.author,
         analytics: fs.readFileSync(__dirname + '/templates/analytics/' + props.analytics),
-        base: fs.readFileSync(__dirname + '/templates/base.js'),
+        baseFileName: (__dirname + '/templates/base.js'),
       };
       this.slug =
         (props.client ? props.client + '/' : '') +
@@ -92,6 +93,12 @@ module.exports = yeoman.generators.Base.extend({
 
   writing: {
     globals: function () {
+      conf.base = fs.readFileSync(conf.baseFileName).toString();
+      conf.base = this.engine(conf.base, conf); // compile base
+      conf.base = UglifyJS.minify(conf.base, {
+        fromString: true
+        /*, output: { 'max_line_len': 50 }*/
+      }).code;
       this.fs.copyTpl(
         this.templatePath('global.css'),
         this.destinationPath(this.slug + 'global.css'),
