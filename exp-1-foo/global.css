@@ -10,9 +10,9 @@
  *
  * ------------------------------------------*/
 
-.exp-1 {
+.exp1 {
   /*global scope*/
 }
-.exp-1 #foo {
+.exp1 #foo {
   display: none;
 }

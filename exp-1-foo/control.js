@@ -10,5 +10,6 @@
  *    - assumes {{tbd}}
  *
  * ------------------------------------------*/
- $.exp1.log('control');
+ var _ = $.exp1;
+ _.log('control');
 /* _optimizely_evaluate=safe */
