@@ -1,6 +1,6 @@
 $(function () {
-  var EXPERIMENT_ID = $['exp<%=idx%>'].id;
-  var CUSTOM_VAR = $['exp<%=idx%>'].cv;
+  var EXPERIMENT_ID = _.id;
+  var CUSTOM_VAR = _.cv;
   if (window.optimizely &&
     window.optimizely.variationMap.hasOwnProperty(EXPERIMENT_ID) &&
     window.ga && typeof ga === 'function') {

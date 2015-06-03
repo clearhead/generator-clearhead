@@ -10,9 +10,9 @@
  *
  * ------------------------------------------*/
 
-.exp-<%=idx%> {
+.exp<%=idx%> {
   /*global scope*/
 }
-.exp-<%=idx%> #foo {
+.exp<%=idx%> #foo {
   display: none;
 }

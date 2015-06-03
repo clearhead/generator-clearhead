@@ -1,6 +1,6 @@
 $(function() {
   try {
-    var e = $['exp<%=idx%>'].id;
+    var e = _.id;
 
     // DO NOT EDIT BELOW THIS LINE
     var o = window.optimizely,

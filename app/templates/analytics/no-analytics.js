@@ -1,1 +1,1 @@
-// null
+// no global.js analytics

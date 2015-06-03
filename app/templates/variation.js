@@ -10,31 +10,29 @@
  *    - assumes {{tbd}}
  *
  * ------------------------------------------*/
-$('html').addClass('exp-<%=idx%>');
-$['exp<%=idx%>'].log('v1');
+var _ = $['exp<%=idx%>'];
+_.log('v1');
+$('html').addClass('exp<%=idx%>');
 
-$.extend($['exp<%=idx%>'], {
-  data: {text: 'New Headline'},
-  headline: function () {
-    this.log('headline');
-    return this.htmlHeredoc(function () {/*
-      <div id="exp-<%=idx%>">
-        {{text}}
-      </div>
-    */}, this.data);
-  },
-  moveUp: function () {
-    var exp = $['exp<%=idx%>'];
-    exp.log('moved up');
+_.$headline = $(_.timpl(function() {
+  /*
+  <div id="exp<%=idx%>"> {{text}} </div>
+  */
+}, {
+  text: 'New Headline'
+}));
+
+_.moveUp = function(i, el) {
+  _.log('moving h2 up to h1');
+  try {
     var $h1 = $('h1');
-    if ($h1.length) {
-      $(this).insertBefore($h1);
-    } else {
-      exp.report('h1 not found');
-    }
+    if ($h1.length) $(el).insertBefore($h1);
+    else _.report('h1 not found');
+  } catch (e) {
+    _.report(e);
   }
-});
+};
 
 /* _optimizely_evaluate=safe */
-$('h1').text($.proxy($['exp<%=idx%>'], 'headline'));
+$('h1').replaceWith($['exp<%=idx%>'].$headline);
 $('h2').each($['exp<%=idx%>'].moveUp);

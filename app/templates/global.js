@@ -10,7 +10,8 @@
  *    - assumes {{tbd}}
  *
  * ------------------------------------------*/
-$['exp<%=idx%>'] = { id: 0123456789, cv: 0 };
+var idx = 'exp<%=idx%>'; // required in sub functions
+var _ = $[idx] = { id: 0123456789, cv: 0 };
 
 <%=analytics%> // jshint ignore:line
 
