@@ -32,6 +32,7 @@ module.exports = yeoman.generators.Base.extend({
         process.exit(1);
       }
     }.bind(this));
+
   },
 
   prompting: function() {
@@ -67,7 +68,7 @@ module.exports = yeoman.generators.Base.extend({
       type: 'list',
       name: 'analytics',
       message: 'Analytics?',
-      choices: getFiles(__dirname + '/templates/analytics/'),
+      choices: fs.readdirSync(__dirname + '/templates/analytics/'),
       validate: function(input) {
         return !!input;
       }
@@ -153,8 +154,3 @@ module.exports = yeoman.generators.Base.extend({
     ));
   }
 });
-
-/*jshint latedef:false*/
-function getFiles(srcpath) {
-  return fs.readdirSync(srcpath);
-}
