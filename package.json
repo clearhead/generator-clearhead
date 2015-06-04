@@ -24,7 +24,8 @@
   ],
   "dependencies": {
     "chalk": "^1.0.0",
-    "request": "^2.57.0",
+    "cowsay": "^1.1.1",
+    "latest-version": "^1.0.0",
     "uglify-js": "^2.4.17",
     "update-notifier": "^0.3.1",
     "yeoman-generator": "^0.18.9",

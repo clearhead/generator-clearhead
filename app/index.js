@@ -4,14 +4,15 @@ var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
 var yosay = require('yosay');
 var UglifyJS = require('uglify-js');
-var request = require('request');
+var latestVersion = require('latest-version');
+var cowsay = require('cowsay');
 var conf;
 
 module.exports = yeoman.generators.Base.extend({
   constructor: function() {
     yeoman.generators.Base.apply(this, arguments);
     this.option('skip-update');
-    this.skipUpdate = (this.options['skip-update'] ? true : false);
+    this.skipUpdate = (this.options['skip-update-check'] ? true : false);
   },
 
   initializing: function() {
@@ -19,18 +20,15 @@ module.exports = yeoman.generators.Base.extend({
     this.pkg = require('../package.json');
 
     var done = this.async();
-    request('https://registry.npmjs.org/generator-clearhead', function(e, r, body) {
-      var edge = false;
-      try {
-        edge = (JSON.parse(body)['dist-tags'].latest === this.pkg.version);
-      } catch (e) {}
-      if (this.skipUpdate || edge) {
+
+    latestVersion('generator-clearhead', function(err, version) {
+      if (this.skipUpdate || this.pkg.version === version) {
         done();
       } else {
-        this.log(yosay(
-          'Please update using `npm update -g generator-clearhead`' +
-          ' or run again using the `--skip-install` flag'
-        ));
+        console.log(cowsay.say({
+          text: 'Please update using `npm update -g generator-clearhead`\n' +
+            ' or run again using the `--skip-update-check` flag'
+        }));
       }
     }.bind(this));
   },
