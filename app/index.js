@@ -11,7 +11,7 @@ var conf;
 module.exports = yeoman.generators.Base.extend({
   constructor: function() {
     yeoman.generators.Base.apply(this, arguments);
-    this.option('skip-update');
+    this.option('skip-update-check');
     this.skipUpdate = (this.options['skip-update-check'] ? true : false);
   },
 
