@@ -29,6 +29,7 @@ module.exports = yeoman.generators.Base.extend({
           text: 'Please update using `npm update -g generator-clearhead`\n' +
             ' or run again using the `--skip-update-check` flag'
         }));
+        process.exit(1);
       }
     }.bind(this));
   },
