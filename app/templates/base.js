@@ -17,7 +17,7 @@ _.report = function report() {
   return b + "=" + encodeURIComponent(a); }).join("&")); } catch (e) {}
 };
 
-// tmpl ==> handlebarsish / https://github.com/premasagar/tim
+// timpl ==> handlebarsish / https://github.com/premasagar/tim
 (function(a){"use strict";function h(a){var c=b.exec(a.toString());if(
 !c)throw new TypeError("Multiline comment missing.");return c[1];}
 function i(a,b){return a.replace(f,function(a,c){for(var d=c.split("."),
