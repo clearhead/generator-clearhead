@@ -20,7 +20,7 @@ var _ = $[idx] = { id: 0123456789, cv: 0 };
 _.log=function(){try{/clearhead-debug/.test(location.href)&&(document.cookie="clearhead-debug=true;path=/;"),/clearhead-debug=true/.test(document.cookie)&&console.info.apply(console,[].concat.apply(["Clearhead",idx],arguments))}catch(e){}},
 // report(error||string) ==> event to ga
 _.report=function(){try{var e="https://ssl.google-analytics.com/collect?",t=(new Date).getTime();try{t=/optimizelyEndUserId=([^;]+)/.exec(document.cookie)[1]}catch(n){}t=t.replace(/[^\d]/g,""),(new Image).src=e+$.map({v:1,tid:"UA-33947856-2",cid:t.toString(),t:"event",ec:location.hostname,ea:idx,el:err.toString(),z:(new Date).getTime()},function(e,t){return t+"="+encodeURIComponent(e)}).join("&")}catch(n){}},
-// tmpl ==> handlebarsish / https://github.com/premasagar/tim
+// timpl ==> handlebarsish / https://github.com/premasagar/tim
 function(e){"use strict";function t(e){var t=r.exec(e.toString());if(!t)throw new TypeError("Multiline comment missing.");return t[1]}function n(e,t){return e.replace(l,function(e,n){for(var r=n.split("."),c=r.length,i=t,a=0;c>a;a++){if(i=i[r[a]],i===o)throw'tim: "'+r[a]+'" not found in '+e;if(a===c-1)return i}})}e.timpl=function(e,o){return n(e.call?t(e):e,o||{}).replace(/^\s+|\s+$/g,"")};var o,r=/\/\*!?(?:\@preserve)?[ \t]*(?:\r\n|\n)([\s\S]*?)(?:\r\n|\n)[ \t]*\*\//,c="{{",i="}}",a="[a-z0-9_$][\\.a-z0-9_]*",l=new RegExp(c+"\\s*("+a+")\\s*"+i,"gi")}(_); // jshint ignore:line
 
 /* _optimizely_evaluate=safe */
