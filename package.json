@@ -14,7 +14,8 @@
     "node": ">=0.10.0"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "release": "npm run test && npm version patch && npm publish && git push --follow-tags"
   },
   "files": [
     "app"
